@@ -163,14 +163,23 @@ class ThemeGenerator {
         : 'Catppuccin Latte',
       
       'workbench.colorCustomizations': {
+        // Editor background and surfaces
+        'editor.background': surfaces.surfaceDim,
+        'editor.lineHighlightBackground': surfaces.surface,
+        'editorGutter.background': surfaces.surfaceDim,
+        'editorGroupHeader.tabsBackground': surfaces.surfaceDim,
+        'editorGroupHeader.tabsBorder': surfaces.surface,
+        
         // Accent color overrides - Primary UI elements
         'activityBar.foreground': accents.primary,
         'activityBarBadge.background': accents.primary,
         'activityBar.activeBorder': accents.primary,
+        'activityBar.background': surfaces.surfaceDim,
         
         'statusBar.background': surfaces.surfaceDim,
         'statusBar.foreground': accents.primary,
         'statusBarItem.prominentBackground': surfaces.surface,
+        'statusBar.border': surfaces.surface,
         
         'editorCursor.foreground': accents.primary,
         'editorLineNumber.activeForeground': accents.primary,
@@ -183,11 +192,14 @@ class ThemeGenerator {
         'editor.wordHighlightStrongBackground': ColorUtils.withOpacity(accents.primary, 0.25),
         'editor.findMatchBackground': ColorUtils.withOpacity(accents.accent, 0.4),
         'editor.findMatchHighlightBackground': ColorUtils.withOpacity(accents.accent, 0.2),
+        'editor.rangeHighlightBackground': ColorUtils.withOpacity(accents.primary, 0.1),
         
         // Sidebar accents
         'sideBarTitle.foreground': accents.primary,
         'sideBarSectionHeader.foreground': accents.primary,
         'sideBar.background': surfaces.surfaceDim,
+        'sideBar.border': surfaces.surface,
+        'sideBarSectionHeader.background': surfaces.surface,
         
         // Tab accents
         'tab.activeForeground': accents.primary,
@@ -195,21 +207,42 @@ class ThemeGenerator {
         'tab.activeBackground': surfaces.surface,
         'tab.inactiveBackground': surfaces.surfaceDim,
         'tab.hoverBackground': surfaces.surfaceLight,
+        'tab.border': surfaces.surface,
+        'editorGroupHeader.border': surfaces.surface,
         
         // Panel
         'panelTitle.activeBorder': accents.primary,
         'panelTitle.activeForeground': accents.primary,
         'panel.background': surfaces.surface,
+        'panel.border': surfaces.surface,
+        'panelSection.border': surfaces.surface,
         
         // Buttons
         'button.background': accents.primary,
         'button.hoverBackground': accents.primaryBright,
         'button.secondaryBackground': surfaces.surface,
+        'button.border': surfaces.surfaceLight,
         
-        // Input
+        // Input fields 
         'input.background': surfaces.surface,
+        'input.border': surfaces.surfaceLight,
         'inputOption.activeBorder': accents.primary,
         'inputOption.activeBackground': ColorUtils.withOpacity(accents.primary, 0.2),
+        'inputOption.activeForeground': accents.primary,
+        'focusBorder': accents.primary,
+        
+        // Dropdown menus 
+        'dropdown.background': surfaces.surface,
+        'dropdown.listBackground': surfaces.surface,
+        'dropdown.border': surfaces.surfaceLight,
+        'dropdown.foreground': this.mode === 'dark' ? '#cdd6f4' : '#4c4f69',
+        
+        // Quick picker (Command Palette)
+        'quickInput.background': surfaces.surface,
+        'quickInput.foreground': this.mode === 'dark' ? '#cdd6f4' : '#4c4f69',
+        'quickInputList.focusBackground': ColorUtils.withOpacity(accents.primary, 0.2),
+        'quickInputList.focusForeground': accents.primary,
+        'quickInputTitle.background': surfaces.surfaceDim,
         
         // Lists
         'list.activeSelectionBackground': ColorUtils.withOpacity(accents.primary, 0.3),
@@ -217,6 +250,17 @@ class ThemeGenerator {
         'list.hoverBackground': surfaces.surfaceLight,
         'list.focusBackground': ColorUtils.withOpacity(accents.primary, 0.2),
         'list.highlightForeground': accents.primary,
+        'list.focusOutline': accents.primary,
+        'list.inactiveFocusOutline': accents.primaryDim,
+        
+        // Menu
+        'menu.background': surfaces.surface,
+        'menu.foreground': this.mode === 'dark' ? '#cdd6f4' : '#4c4f69',
+        'menu.selectionBackground': ColorUtils.withOpacity(accents.primary, 0.2),
+        'menu.selectionForeground': accents.primary,
+        'menu.border': surfaces.surfaceLight,
+        'menubar.selectionBackground': ColorUtils.withOpacity(accents.primary, 0.2),
+        'menubar.selectionForeground': accents.primary,
         
         // Scrollbar
         'scrollbarSlider.background': ColorUtils.withOpacity(surfaces.surface, 0.5),
@@ -225,6 +269,7 @@ class ThemeGenerator {
         
         // Badge
         'badge.background': accents.primary,
+        'badge.foreground': surfaces.surfaceDim,
         
         // Progress Bar
         'progressBar.background': accents.primary,
@@ -235,13 +280,18 @@ class ThemeGenerator {
         
         // Breadcrumbs
         'breadcrumb.activeSelectionForeground': accents.primary,
+        'breadcrumb.background': surfaces.surface,
+        'breadcrumb.focusForeground': accents.primary,
+        'breadcrumbPicker.background': surfaces.surface,
         
         // Git decorations with extracted colors
         'gitDecoration.modifiedResourceForeground': accents.secondary,
         'gitDecoration.untrackedResourceForeground': accents.accent,
         'gitDecoration.addedResourceForeground': accents.secondary,
+        'gitDecoration.deletedResourceForeground': accents.accentDim,
         
         // Terminal accents (minimal overrides)
+        'terminal.background': surfaces.surface,
         'terminal.ansiBlue': accents.primary,
         'terminal.ansiCyan': accents.secondary,
         'terminal.ansiMagenta': accents.primaryBright,
@@ -257,19 +307,52 @@ class ThemeGenerator {
         // Minimap
         'minimap.selectionHighlight': accents.primary,
         'minimap.findMatchHighlight': accents.accent,
+        'minimapGutter.addedBackground': accents.secondary,
+        'minimapGutter.modifiedBackground': accents.secondary,
         
-        // Editor widget
+        // Editor widget (autocomplete, hover, etc.)
         'editorWidget.background': surfaces.surface,
         'editorWidget.border': surfaces.surfaceLight,
+        'editorWidget.foreground': this.mode === 'dark' ? '#cdd6f4' : '#4c4f69',
+        'editorSuggestWidget.background': surfaces.surface,
+        'editorSuggestWidget.border': surfaces.surfaceLight,
         'editorSuggestWidget.selectedBackground': ColorUtils.withOpacity(accents.primary, 0.2),
         'editorSuggestWidget.highlightForeground': accents.primary,
+        'editorSuggestWidget.focusHighlightForeground': accents.primaryBright,
+        'editorHoverWidget.background': surfaces.surface,
+        'editorHoverWidget.border': surfaces.surfaceLight,
         
         // Notifications
+        'notificationCenter.border': surfaces.surface,
+        'notificationCenterHeader.background': surfaces.surfaceDim,
+        'notifications.background': surfaces.surface,
+        'notifications.border': surfaces.surfaceLight,
         'notificationLink.foreground': accents.primary,
         
         // Title bar (subtle surface)
         'titleBar.activeBackground': surfaces.surfaceDim,
         'titleBar.inactiveBackground': surfaces.surfaceDim,
+        'titleBar.border': surfaces.surface,
+        
+        // Settings editor
+        'settings.headerForeground': accents.primary,
+        'settings.modifiedItemIndicator': accents.primary,
+        'settings.dropdownBackground': surfaces.surface,
+        'settings.dropdownBorder': surfaces.surfaceLight,
+        'settings.textInputBackground': surfaces.surface,
+        'settings.textInputBorder': surfaces.surfaceLight,
+        'settings.numberInputBackground': surfaces.surface,
+        'settings.numberInputBorder': surfaces.surfaceLight,
+        'settings.checkboxBackground': surfaces.surface,
+        'settings.checkboxBorder': surfaces.surfaceLight,
+        
+        // Diff editor
+        'diffEditor.insertedTextBackground': ColorUtils.withOpacity(accents.secondary, 0.2),
+        'diffEditor.removedTextBackground': ColorUtils.withOpacity(accents.accent, 0.2),
+        
+        // Extension buttons
+        'extensionButton.prominentBackground': accents.primary,
+        'extensionButton.prominentHoverBackground': accents.primaryBright,
       },
     };
   }
