@@ -1,0 +1,33 @@
+{
+  "name": "lunar-mat",
+  "version": "1.0.0",
+  "description": "Material You inspired adaptive wallpaper color extraction for VS Code with Catppuccin theming",
+  "main": "index.js",
+  "bin": {
+    "adaptive-theme": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dark": "node index.js wallpaper.jpg dark",
+    "light": "node index.js wallpaper.jpg light"
+  },
+  "keywords": [
+    "vscode",
+    "theme",
+    "wallpaper",
+    "material-you",
+    "catppuccin",
+    "adaptive",
+    "color-extraction"
+  ],
+  "author": "HaxTechs",
+  "license": "MIT",
+  "dependencies": {
+    "node-vibrant": "^4.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/lunar-mat.git"
+  },
+  "homepage": "https://github.com/yourusername/lunar-mat#readme"
+}
