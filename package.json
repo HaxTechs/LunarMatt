@@ -7,9 +7,11 @@
     "adaptive-theme": "./index.js"
   },
   "scripts": {
-    "start": "node index.js auto dark",
-    "dark": "node index.js auto dark",
-    "light": "node index.js auto  light"
+  "start": "node index.js auto dark",
+  "dark": "node index.js auto dark",
+  "light": "node index.js auto light",
+  "watch": "node index.js watch dark",
+  "watch:light": "node index.js watch light"
   },
   "keywords": [
     "vscode",
