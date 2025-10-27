@@ -9,14 +9,15 @@
  */
 
 const { Vibrant } = require('node-vibrant/node');
+const { getWallpaper } = require('wallpaper');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
 // Configuration
 const CONFIG = {
-  wallpaperPath: process.argv[2] || path.join(__dirname, 'wallpaper.jpg'),
-  mode: process.argv[3] || 'dark', // 'dark' or 'light'
+  wallpaperPath: process.argv[2] || 'auto',
+  mode: process.argv[3] || 'dark', 
   vscodeSettingsPath: path.join(
     os.homedir(),
     process.platform === 'win32'
@@ -366,12 +367,31 @@ class AdaptiveWallpaperTheme {
     this.config = config;
   }
 
-  async extractColors() {
+  async getWallpaperPath() {
+    if (this.config.wallpaperPath === 'auto') {
+      console.log('🔍 Auto-detecting wallpaper...');
+      try {
+        const wallpaperPath = await getWallpaper();
+        console.log(`✅ Detected: ${wallpaperPath}`);
+        return wallpaperPath;
+      } catch (error) {
+        throw new Error(`Failed to auto-detect wallpaper: ${error.message}\nPlease provide wallpaper path manually.`);
+      }
+    } else {
+      // Manual path provided
+      if (!fs.existsSync(this.config.wallpaperPath)) {
+        throw new Error(`Wallpaper file not found: ${this.config.wallpaperPath}`);
+      }
+      return this.config.wallpaperPath;
+    }
+  }
+
+  async extractColors(wallpaperPath) {
     console.log('🎨 Extracting colors from wallpaper...');
-    console.log(`📁 Wallpaper: ${this.config.wallpaperPath}`);
+    console.log(`📁 Wallpaper: ${wallpaperPath}`);
     
     try {
-      const vibrant = new Vibrant(this.config.wallpaperPath);
+      const vibrant = new Vibrant(wallpaperPath);
       const palette = await vibrant.getPalette();
       
       console.log('\n✨ Extracted Color Palette:');
@@ -438,8 +458,11 @@ class AdaptiveWallpaperTheme {
       console.log('🚀 Adaptive Wallpaper Theme Generator for Catppuccin');
       console.log(`🌓 Mode: ${this.config.mode}\n`);
 
+      // Get wallpaper path (auto-detect or manual)
+      const wallpaperPath = await this.getWallpaperPath();
+
       // Extract colors
-      const palette = await this.extractColors();
+      const palette = await this.extractColors(wallpaperPath);
 
       // Generate theme overrides
       const generator = new ThemeGenerator(palette, this.config.mode);
@@ -473,7 +496,11 @@ class AdaptiveWallpaperTheme {
       console.log('   - Restart VS Code to see changes');
       console.log('   - Make sure Catppuccin theme is installed');
       console.log('   - Try different wallpapers for different vibes');
-      console.log('\n🔄 Switch modes:');
+      console.log('\n🔄 Usage:');
+      console.log('   Auto-detect: node index.js auto dark');
+      console.log('   Auto-detect: node index.js auto light');
+      console.log('   Manual: node index.js /path/to/wallpaper.jpg dark');
+      console.log(`\n🌓 Switch to ${this.config.mode === 'dark' ? 'light' : 'dark'} mode:`);
       console.log(`   node index.js ${this.config.wallpaperPath} ${this.config.mode === 'dark' ? 'light' : 'dark'}`);
 
       return true;
@@ -482,6 +509,10 @@ class AdaptiveWallpaperTheme {
       if (error.message.includes('ENOENT')) {
         console.error('\n💡 Make sure the wallpaper path is correct!');
         console.error(`   Tried to load: ${this.config.wallpaperPath}`);
+      }
+      if (error.message.includes('auto-detect')) {
+        console.error('\n💡 Try providing the wallpaper path manually:');
+        console.error('   node index.js /path/to/wallpaper.jpg dark');
       }
       process.exit(1);
     }
