@@ -83,16 +83,32 @@ class HyprlandDetector extends BaseDetector {
   }
 
   async detectQuickShell() {
+    // Check QuickShell config files
     for (const configPath of QUICKSHELL_PATHS) {
       if (fs.existsSync(configPath)) {
         const content = fs.readFileSync(configPath, 'utf8').trim();
-        
+
         if (fs.existsSync(content)) {
           return content;
         }
       }
     }
-    
+
+    // Check illogical-impulse config for wallpaper path
+    const illogicalImpulseConfig = path.join(os.homedir(), '.config/illogical-impulse/config.json');
+    if (fs.existsSync(illogicalImpulseConfig)) {
+      try {
+        const config = JSON.parse(fs.readFileSync(illogicalImpulseConfig, 'utf8'));
+        const wallpaperPath = config.background?.wallpaperPath;
+
+        if (wallpaperPath && fs.existsSync(wallpaperPath)) {
+          return wallpaperPath;
+        }
+      } catch (error) {
+        // Ignore JSON parse errors
+      }
+    }
+
     return null;
   }
 
