@@ -107,11 +107,11 @@ class ThemeGenerator {
         'statusBar.border': surfaces.surface,
         
         // Editor cursors and line numbers
-        'editorCursor.foreground': accents.primary,
-        'editorLineNumber.activeForeground': accents.primary,
+        'editorCursor.foreground': accents.primaryBright,
+        'editorLineNumber.activeForeground': accents.primaryBright,
         
         // Selections and highlights
-        'editor.selectionBackground': ColorUtils.withOpacity(accents.primary, 0.3),
+        'editor.selectionBackground': ColorUtils.withOpacity(accents.primaryDim, 0.3),
         'editor.inactiveSelectionBackground': ColorUtils.withOpacity(accents.primary, 0.15),
         'editor.selectionHighlightBackground': ColorUtils.withOpacity(accents.secondary, 0.2),
         'editor.wordHighlightBackground': ColorUtils.withOpacity(accents.secondary, 0.2),
@@ -166,8 +166,8 @@ class ThemeGenerator {
         // Quick picker (Command Palette)
         'quickInput.background': surfaces.surface,
         'quickInput.foreground': textColor,
-        'quickInputList.focusBackground': ColorUtils.withOpacity(accents.primary, 0.2),
-        'quickInputList.focusForeground': accents.primary,
+        'quickInputList.focusBackground': ColorUtils.withOpacity(accents.primaryBright, 0.2),
+        'quickInputList.focusForeground': textColor,
         'quickInputTitle.background': surfaces.surfaceDim,
         
         // Lists
@@ -182,10 +182,10 @@ class ThemeGenerator {
         // Menu
         'menu.background': surfaces.surface,
         'menu.foreground': textColor,
-        'menu.selectionBackground': ColorUtils.withOpacity(accents.primary, 0.2),
+        'menu.selectionBackground': ColorUtils.withOpacity(accents.primaryBright, 0.2),
         'menu.selectionForeground': accents.primary,
         'menu.border': surfaces.surfaceLight,
-        'menubar.selectionBackground': ColorUtils.withOpacity(accents.primary, 0.2),
+        'menubar.selectionBackground': ColorUtils.withOpacity(accents.primaryBright, 0.2),
         'menubar.selectionForeground': accents.primary,
         
         // Scrollbar
