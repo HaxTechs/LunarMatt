@@ -17,9 +17,15 @@
     "help": "node index.js help",
     "build": "pkg . --out-path dist",
     "build:linux": "pkg . --targets node18-linux-x64 --out-path dist",
-    "build:windows": "pkg . --targets node18-win-x64 --out-path dist",
-    "build:macos": "pkg . --targets node18-macos-x64 --out-path dist",
-    "build:all": "npm run build"
+    "build:win": "pkg . --targets node18-win-x64 --out-path dist",
+    "build:mac": "pkg . --targets node18-macos-x64 --out-path dist",
+    "build:all": "npm run build",
+    "install:linux": "chmod +x install.sh && ./install.sh",
+    "install:win": "install.bat",
+    "install:mac": "chmod +x install-macos.sh && ./install-macos.sh",
+    "uninstall:linux": "chmod +x uninstall.sh && ./uninstall.sh",
+    "uninstall:win": "uninstall.bat",
+    "uninstall:mac": "chmod +x uninstall-macos.sh && ./uninstall-macos.sh"
   },
   "keywords": [
     "vscode",
@@ -49,7 +55,12 @@
       "node18-win-x64",
       "node18-macos-x64"
     ],
-    "outputPath": "dist"
+    "outputPath": "dist",
+    "patches": {
+      "node_modules/wallpaper/package.json": {
+        "type": "module"
+      }
+    }
   },
   "repository": {
     "type": "git",

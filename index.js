@@ -255,7 +255,7 @@ class LunarMat {
  * CLI Entry Point
  */
 function printHelp() {
-  console.log('Usage: node index.js <wallpaper-path|auto|watch|reset|status|help> [dark|light]');
+  console.log('Usage: lunarmatt <wallpaper-path|auto|watch|reset|status|help> [dark|light]');
   console.log('');
   console.log('Commands:');
   console.log('  auto dark|light     # Auto-detect wallpaper and apply theme');
@@ -265,12 +265,12 @@ function printHelp() {
   console.log('  help                # Show this help message');
   console.log('');
   console.log('Examples:');
-  console.log('  node index.js auto dark                    # Auto-detect wallpaper, dark mode');
-  console.log('  node index.js watch light                  # Watch for changes, light mode');
-  console.log('  node index.js ~/Pictures/wall.jpg dark     # Manual path, dark mode');
-  console.log('  node index.js reset                        # Remove Lunar Mat customizations');
-  console.log('  node index.js status                       # Show current status');
-  console.log('  node index.js help                         # Show help');
+  console.log('  lunarmatt auto dark                    # Auto-detect wallpaper, dark mode');
+  console.log('  lunarmatt watch light                  # Watch for changes, light mode');
+  console.log('  lunarmatt ~/Pictures/wall.jpg dark     # Manual path, dark mode');
+  console.log('  lunarmatt reset                        # Remove Lunar Mat customizations');
+  console.log('  lunarmatt status                       # Show current status');
+  console.log('  lunarmatt help                         # Show help');
   console.log('');
 }
 
