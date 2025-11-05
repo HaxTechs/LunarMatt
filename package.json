@@ -1,34 +1,25 @@
 {
-  "name": "LunarMatt",
+  "name": "lunarmatt",
   "version": "1.0.0",
   "description": "Material You inspired adaptive wallpaper color extraction for VS Code with Catppuccin theming",
   "main": "index.js",
   "bin": {
     "lunarmatt": "./index.js"
   },
-    "pkg": {
-    "scripts": [
-      "src/**/*.js"
-    ],
-    "assets": [],
-    "targets": [
-      "node18-linux-x64",
-      "node18-win-x64",
-      "node18-macos-x64"
-    ],
-    "outputPath": "dist"
-  },
   "scripts": {
-  "build": "pkg . --out-path dist",
-  "build:linux": "pkg . --targets node22-linux-x64 --out-path dist",
-  "build:windows": "pkg . --targets node22-win-x64 --out-path dist",
-  "build:macos": "pkg . --targets node22-macos-x64 --out-path dist",
-  "build:all": "npm run build",
-  "start": "node index.js auto dark",
-  "dark": "node index.js auto dark",
-  "light": "node index.js auto light",
-  "watch": "node index.js watch dark",
-  "watch:light": "node index.js watch light"
+    "start": "node index.js auto dark",
+    "dark": "node index.js auto dark",
+    "light": "node index.js auto light",
+    "watch": "node index.js watch dark",
+    "watch:light": "node index.js watch light",
+    "reset": "node index.js reset",
+    "status": "node index.js status",
+    "help": "node index.js help",
+    "build": "pkg . --out-path dist",
+    "build:linux": "pkg . --targets node18-linux-x64 --out-path dist",
+    "build:windows": "pkg . --targets node18-win-x64 --out-path dist",
+    "build:macos": "pkg . --targets node18-macos-x64 --out-path dist",
+    "build:all": "npm run build"
   },
   "keywords": [
     "vscode",
@@ -45,9 +36,27 @@
     "node-vibrant": "^4.0.3",
     "wallpaper": "^7.2.1"
   },
+  "devDependencies": {
+    "pkg": "^5.8.1"
+  },
+  "pkg": {
+    "scripts": [
+      "src/**/*.js"
+    ],
+    "assets": [],
+    "targets": [
+      "node18-linux-x64",
+      "node18-win-x64",
+      "node18-macos-x64"
+    ],
+    "outputPath": "dist"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/haxtechs/lunarmatt.git"
   },
-  "homepage": "https://github.com/haxtechs/lunarmatt#readme"
+  "homepage": "https://github.com/haxtechs/lunarmatt#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  }
 }

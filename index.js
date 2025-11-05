@@ -119,23 +119,48 @@ class LunarMat {
     const themeGenerator = new ThemeGenerator(palette, this.mode);
     const theme = themeGenerator.generate();
 
-    // Read existing settings
+    // Read existing settings and check for Catppuccin
     const existingSettings = this.settingsManager.read();
-
-    // Check for Catppuccin
     this.settingsManager.checkCatppuccinTheme(existingSettings);
 
-    // Merge and write settings
-    const finalSettings = {
-      ...existingSettings,
-      'workbench.colorTheme': theme['workbench.colorTheme'],
-      'workbench.colorCustomizations': {
-        ...(existingSettings['workbench.colorCustomizations'] || {}),
-        ...theme['workbench.colorCustomizations'],
-      },
-    };
+    // Apply theme (preserves existing customizations)
+    this.settingsManager.applyTheme(theme);
+  }
 
-    this.settingsManager.write(finalSettings);
+  /**
+   * Reset - remove Lunar Mat customizations
+   */
+  reset() {
+    try {
+      Logger.header('🔄 Lunar Mat - Reset');
+      Logger.info('Removing Lunar Mat customizations...');
+      Logger.separator();
+
+      const success = this.settingsManager.reset();
+
+      if (success) {
+        Logger.separator();
+        Logger.success('Reset complete!');
+        Logger.info('Your other VS Code customizations have been preserved.');
+        Logger.separator();
+        Logger.info('💡 Tip: Restart VS Code to see changes');
+        Logger.separator();
+      }
+
+      return success;
+    } catch (error) {
+      Logger.error(`Reset failed: ${error.message}`);
+      process.exit(1);
+    }
+  }
+
+  /**
+   * Show status of Lunar Mat customizations
+   */
+  status() {
+    Logger.header('📊 Lunar Mat - Status');
+    this.settingsManager.showStatus();
+    Logger.separator();
   }
 
   /**
@@ -229,22 +254,56 @@ class LunarMat {
 /**
  * CLI Entry Point
  */
+function printHelp() {
+  console.log('Usage: node index.js <wallpaper-path|auto|watch|reset|status|help> [dark|light]');
+  console.log('');
+  console.log('Commands:');
+  console.log('  auto dark|light     # Auto-detect wallpaper and apply theme');
+  console.log('  watch dark|light    # Watch for wallpaper changes and auto-apply');
+  console.log('  reset               # Remove all Lunar Mat customizations');
+  console.log('  status              # Show current Lunar Mat status');
+  console.log('  help                # Show this help message');
+  console.log('');
+  console.log('Examples:');
+  console.log('  node index.js auto dark                    # Auto-detect wallpaper, dark mode');
+  console.log('  node index.js watch light                  # Watch for changes, light mode');
+  console.log('  node index.js ~/Pictures/wall.jpg dark     # Manual path, dark mode');
+  console.log('  node index.js reset                        # Remove Lunar Mat customizations');
+  console.log('  node index.js status                       # Show current status');
+  console.log('  node index.js help                         # Show help');
+  console.log('');
+}
+
 function main() {
   // Parse command line arguments
   const args = process.argv.slice(2);
 
   if (args.length === 0) {
-    console.log('Usage: node index.js <wallpaper-path|auto|watch> [dark|light]');
-    console.log('');
-    console.log('Examples:');
-    console.log('  node index.js auto dark                    # Auto-detect wallpaper, dark mode');
-    console.log('  node index.js watch light                  # Watch for changes, light mode');
-    console.log('  node index.js ~/Pictures/wall.jpg dark     # Manual path, dark mode');
-    console.log('');
+    printHelp();
     process.exit(0);
   }
 
-  const wallpaperPath = args[0];
+  const command = args[0];
+
+  // Handle special commands
+  if (command === 'reset') {
+    const app = new LunarMat('auto', 'dark'); // dummy values
+    app.reset();
+    return;
+  }
+
+  if (command === 'status') {
+    const app = new LunarMat('auto', 'dark'); // dummy values
+    app.status();
+    return;
+  }
+
+  if (command === 'help') {
+    printHelp();
+    return;
+  }
+
+  const wallpaperPath = command;
   const mode = args[1] || 'dark';
 
   // Validate mode
