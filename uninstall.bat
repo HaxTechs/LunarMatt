@@ -5,7 +5,7 @@ REM Removes lunarmatt.exe and cleans up
 echo 🗑️  Lunar Mat - Windows Uninstallation
 echo =====================================
 
-set "INSTALL_DIR=%USERPROFILE%\bin"
+set "INSTALL_DIR=%ProgramFiles%\LunarMat"
 set "BINARY_PATH=%INSTALL_DIR%\lunarmatt.exe"
 
 if exist "%BINARY_PATH%" (

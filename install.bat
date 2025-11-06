@@ -1,41 +1,49 @@
 @echo off
-REM Lunar Mat Windows Installation Script
-REM Installs lunarmatt.exe to a directory in PATH
+REM =============================================================
+REM  Lunar Mat Windows Installation Script (System PATH version)
+REM =============================================================
 
 echo 🚀 Lunar Mat - Windows Installation
 echo ===================================
 
+REM Set script directory as root
+set "SCRIPT_DIR=%~dp0"
+
 REM Check if binary exists
-if not exist "dist\LunarMatt-win.exe" (
+if not exist "%SCRIPT_DIR%dist\lunarmatt-win.exe" (
     echo Building binary...
     npm run build:windows
 )
 
-REM Find a suitable installation directory
-set "INSTALL_DIR=%USERPROFILE%\bin"
+REM Define install directory
+set "INSTALL_DIR=%ProgramFiles%\LunarMat"
 if not exist "%INSTALL_DIR%" mkdir "%INSTALL_DIR%"
 
 echo Installing to: %INSTALL_DIR%
 
 REM Copy binary
-copy "dist\LunarMatt-win.exe" "%INSTALL_DIR%\lunarmatt.exe" >nul
+copy "%SCRIPT_DIR%dist\lunarmatt-win.exe" "%INSTALL_DIR%\lunarmatt.exe" >nul
 
-REM Check if INSTALL_DIR is in PATH
-echo %PATH% | find /i "%INSTALL_DIR%" >nul
-if errorlevel 1 (
-    echo Adding %INSTALL_DIR% to PATH...
-    setx PATH "%PATH%;%INSTALL_DIR%" >nul
-    echo Please restart your command prompt to use 'lunarmatt'
-)
+REM Use PowerShell to check and modify the SYSTEM PATH safely
+echo Checking system PATH...
+powershell -Command ^
+    "$installDir='%INSTALL_DIR%';" ^
+    "$currentPath=[Environment]::GetEnvironmentVariable('Path','Machine');" ^
+    "if (-not ($currentPath -split ';' | ForEach-Object { $_.Trim() } | Where-Object { $_ -eq $installDir })) {" ^
+    "    [Environment]::SetEnvironmentVariable('Path', $currentPath + ';' + $installDir, 'Machine');" ^
+    "    Write-Host '✅ Added to SYSTEM PATH successfully.'" ^
+    "} else {" ^
+    "    Write-Host 'ℹ️  Already present in SYSTEM PATH.'" ^
+    "}"
 
 echo.
 echo ✅ Installation complete!
 echo.
 echo You can now use 'lunarmatt' from anywhere:
-echo   lunarmatt help          # Show help
-echo   lunarmatt auto dark     # Auto-detect wallpaper and apply theme
-echo   lunarmatt status        # Check current status
-echo   lunarmatt reset         # Remove customizations
+echo   lunarmatt help
+echo   lunarmatt auto dark
+echo   lunarmatt status
+echo   lunarmatt reset
 echo.
-echo Restart your command prompt or PowerShell to update PATH.
+echo ⚠️  Please restart your Command Prompt or PowerShell for the changes to take effect.
 pause
