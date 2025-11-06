@@ -2,6 +2,16 @@
 debug-wallpaper.js
 scripts
 
+#Release files
+LunarMatt-Linux-v0.1.0
+LunarMatt-Linux-v0.1.0.zip
+
+LunarMatt-win-v0.1.0
+LunarMatt-win-v0.1.0.zip
+
+LunarMatt-mac-v0.1.0
+LunarMatt-mac-v0.1.0.zip
+
 # Logs
 logs
 *.log
