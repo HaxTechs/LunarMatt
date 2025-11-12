@@ -218,14 +218,14 @@ lunarmatt help
 
 LunarMatt customizes **135+ VS Code UI elements** including:
 
-- 🖼️ Editor backgrounds, gutters, and line highlights
-- 📊 Activity bar, status bar, and title bar
-- 📁 Sidebars, panels, and tabs
-- 🎨 Buttons, inputs, and dropdowns
-- 🔍 Search highlights and selections
-- 📝 Suggestions and hover widgets
-- 🎯 Git decorations
-- 💻 Terminal colors
+- Editor backgrounds, gutters, and line highlights
+- Activity bar, status bar, and title bar
+- Sidebars, panels, and tabs
+- Buttons, inputs, and dropdowns
+- Search highlights and selections
+- Suggestions and hover widgets
+- Git decorations
+- Terminal colors
 - And many more!
 
 See `ThemeReference.md` for a complete reference.
